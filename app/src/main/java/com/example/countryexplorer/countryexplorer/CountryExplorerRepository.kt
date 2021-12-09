@@ -10,7 +10,6 @@ interface CountryExplorerRepository {
     suspend fun fetchCountries()
 
     fun getCountries(): Flow<List<Country>>
-
 }
 
 class CountryExplorerRepositoryImpl(val dao: CountryDatabaseDao): CountryExplorerRepository {
@@ -21,7 +20,7 @@ class CountryExplorerRepositoryImpl(val dao: CountryDatabaseDao): CountryExplore
         val country3 = Country(name="Country3", population = 3 )
         val country4 = Country(name="Country4", population = 4 )
         val country5 = Country(name="Country5", population = 5 )
-        val countries = listOf<Country>(country1, country2, country3, country4, country5)
+        val countries = listOf(country1, country2, country3, country4, country5)
         delay( 1000 )
         dao.upsertMany(countries)
     }
@@ -29,5 +28,4 @@ class CountryExplorerRepositoryImpl(val dao: CountryDatabaseDao): CountryExplore
     override fun getCountries(): Flow<List<Country>> {
         return dao.getCountries()
     }
-
 }

@@ -9,10 +9,11 @@ import java.lang.IllegalArgumentException
 /**
  * Provides the CountryDatabaseDao and context to the ViewModel.
  */
+
 class CountryExplorerViewModelFactory(
     private val repository: CountryExplorerRepository) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CountryExplorerViewModel::class.java)) {
             return CountryExplorerViewModel(repository) as T
         }

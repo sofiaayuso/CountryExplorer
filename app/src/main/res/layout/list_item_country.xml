@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="flag" />
+        tools:text="Flag" />
 
     <TextView
         android:id="@+id/country_name"
@@ -26,13 +26,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/flag_unicode"
         app:layout_constraintTop_toTopOf="@+id/flag_unicode"
-        tools:text="-Country Name Here-" />
+        tools:text="Country Name Here" />
 
     <TextView
         android:id="@+id/country_population"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
+        android:text="@string/population"
         app:layout_constraintEnd_toEndOf="@+id/country_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/country_name"

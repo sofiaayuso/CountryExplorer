@@ -9,6 +9,6 @@
 
     <!-- Other strings -->
     <string name="not_found">No countries found. Tap “Refresh” to load.</string>
-    <string name="population">Population: </string>
+    <string name="population">Population: %d</string>
 
 </resources>

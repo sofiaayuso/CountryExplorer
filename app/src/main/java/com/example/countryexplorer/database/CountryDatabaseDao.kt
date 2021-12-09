@@ -12,6 +12,6 @@ interface CountryDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertMany(countries: List<Country>)
 
-    @Query("SELECT * FROM country_table ORDER BY countryId DESC")
+    @Query("SELECT * FROM country_table ORDER BY name")
     fun getCountries(): Flow<List<Country>>
 }

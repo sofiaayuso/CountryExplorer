@@ -1,4 +1,4 @@
-package com.example.countryexplorer.database;
+package com.example.countryexplorer.database
 
 import android.content.Context
 import androidx.room.Database

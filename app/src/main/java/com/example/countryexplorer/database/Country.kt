@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "country_table")
 data class Country (
-    @PrimaryKey(autoGenerate = true)
-    var countryId: Long = 0L,
 
+    @PrimaryKey
     @ColumnInfo(name = "name")
     var name: String = "",
 

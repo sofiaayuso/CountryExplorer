@@ -17,42 +17,25 @@
         android:orientation="vertical"
         tools:context=".countryexplorer.CountryExplorerFragment">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/toolbar_container"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/refresh_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             android:backgroundTint="@color/white"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:text="@string/refresh"
+            android:textColor="@color/purple_700"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="wrap_content"
-                android:backgroundTint="@color/white"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"/>
-
-            <Button
-                android:id="@+id/refresh_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:text="@string/refresh"
-                android:textColor="@color/purple_700" />
-
-        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_container"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/refresh_button"
             tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/list_item_country"
             tools:visibility="visible">
@@ -71,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_container"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
         <TextView
@@ -80,10 +63,11 @@
             android:layout_height="wrap_content"
             android:text="@string/not_found"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_container" />
+            app:layout_constraintTop_toTopOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

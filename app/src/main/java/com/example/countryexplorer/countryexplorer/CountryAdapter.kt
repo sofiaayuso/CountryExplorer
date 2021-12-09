@@ -13,8 +13,6 @@ import com.example.countryexplorer.database.Country
 
 class CountryAdapter(): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
@@ -23,9 +21,6 @@ class CountryAdapter(): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
-
-    // TODO: What is the position passed to this following function?
-    override fun getItemViewType(position: Int): Int = R.layout.list_item_country
 
     class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val countryFlag: TextView = itemView.findViewById(R.id.flag_unicode)

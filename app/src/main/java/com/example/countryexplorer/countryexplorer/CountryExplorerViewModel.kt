@@ -14,8 +14,7 @@ import kotlinx.coroutines.launch
  */
 class CountryExplorerViewModel(
 
-    val repository: CountryExplorerRepository): ViewModel() {
-
+    private val repository: CountryExplorerRepository): ViewModel() {
 
     private val _countryExplorerViewStateFlowUpdates: MutableStateFlow<CountryExplorerViewState> = MutableStateFlow(CountryExplorerViewState.NotFound)
     val countryExplorerViewStateFlow: Flow<CountryExplorerViewState> = _countryExplorerViewStateFlowUpdates
@@ -31,7 +30,7 @@ class CountryExplorerViewModel(
             }.launchIn(viewModelScope)
     }
 
-    fun handleCountryData(countries: List<Country>) {
+    private fun handleCountryData(countries: List<Country>) {
         if (countries.isNotEmpty()) {
             _countryExplorerViewStateFlowUpdates.value = CountryExplorerViewState.Loaded(countries)
         } else {
@@ -45,12 +44,4 @@ class CountryExplorerViewModel(
             repository.fetchCountries()
         }
     }
-
-    /**
-    //     * Converted nights to Spanned for displaying.
-    //     */
-//    val countriesString = Transformations.map(countries) { countries ->
-//        formatCountries(countries, application.resources)
-//    }   // formatNights is a function in the Util.kt file. Not sure if I need this file in my project
-
 }
