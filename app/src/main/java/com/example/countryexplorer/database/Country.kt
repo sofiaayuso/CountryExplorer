@@ -1,6 +1,7 @@
 package com.example.countryexplorer.database
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Country (
 
     @PrimaryKey
-    @ColumnInfo(name = "name")
+//    @Embedded
     var name: String = "",
 
     @ColumnInfo(name = "population")
@@ -17,3 +18,8 @@ data class Country (
     @ColumnInfo(name = "flag")
     var flag: String = "" // unicode string
 )
+
+//data class Name (
+//    @ColumnInfo(name = "common")
+//    var common: String = ""
+//)

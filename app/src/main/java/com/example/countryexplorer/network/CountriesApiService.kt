@@ -1,21 +1,24 @@
 package com.example.countryexplorer.network
 
 import com.example.countryexplorer.database.Country
+import com.squareup.moshi.Moshi
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 private const val BASE_URL =
-    "https://restcountries.com/v3.1/all/"
+    "https://restcountries.com/v2/"
+
+var moshi = Moshi.Builder().build()
 
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
 
 interface CountriesApiService {
 
-    @GET
+    @GET("all")
     suspend fun getCountries(): List<Country>
 
 //    @GET("name/{name}")
