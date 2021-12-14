@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/countryExplorerFragment">
+
+    <fragment
+        android:id="@+id/countryExplorerFragment"
+        android:name="com.example.countryexplorer.countryexplorer.CountryExplorerFragment"
+        android:label="CountryExplorerFragment" >
+        <action
+            android:id="@+id/action_countryExplorerFragment_to_singleCountryFragment"
+            app:destination="@id/singleCountryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleCountryFragment"
+        android:name="com.example.countryexplorer.singlecountry.SingleCountryFragment"
+        android:label="SingleCountryFragment" />
+</navigation>

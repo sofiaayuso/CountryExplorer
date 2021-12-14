@@ -41,7 +41,11 @@ class CountryExplorerViewModel(
     fun onRefreshClicked() {
         viewModelScope.launch {
             _countryExplorerViewStateFlowUpdates.value = CountryExplorerViewState.Loading
-            repository.fetchCountries()
+            try {
+                repository.fetchCountries()
+            } catch(e: Exception){
+                _countryExplorerViewStateFlowUpdates.value = CountryExplorerViewState.Error
+            }
         }
     }
 }

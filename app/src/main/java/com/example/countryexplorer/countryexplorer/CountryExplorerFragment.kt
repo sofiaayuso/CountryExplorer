@@ -1,10 +1,10 @@
 package com.example.countryexplorer.countryexplorer
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,8 +14,13 @@ import com.example.countryexplorer.R
 import com.example.countryexplorer.database.CountryDatabase
 import com.example.countryexplorer.database.CountryDatabaseDao
 import com.example.countryexplorer.databinding.FragmentCountryExplorerBinding
+import com.example.countryexplorer.singlecountry.OnListItemClick
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import com.example.countryexplorer.singlecountry.OnListItemClick
+
+
+
 
 class CountryExplorerFragment: Fragment() {
 
@@ -75,6 +80,12 @@ class CountryExplorerFragment: Fragment() {
                 ui.loadingIndicator.isVisible = true
                 ui.recyclerView.isVisible = false //TODO: How do i make it opaque?
                 ui.tvNotFound.isVisible = false
+            }
+            is CountryExplorerViewState.Error -> {
+                ui.loadingIndicator.isVisible = false //TODO: if it goes from notfound state to error, screen is empty. correct this.
+                ui.recyclerView.isVisible = true
+                ui.tvNotFound.isVisible = false
+                Toast.makeText(activity, "Error: Could not complete request", Toast.LENGTH_SHORT).show()
             }
             is CountryExplorerViewState.Loaded -> {
                 ui.loadingIndicator.isVisible = false

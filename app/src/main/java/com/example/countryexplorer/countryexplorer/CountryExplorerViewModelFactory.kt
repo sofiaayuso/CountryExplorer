@@ -1,9 +1,7 @@
 package com.example.countryexplorer.countryexplorer
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.countryexplorer.database.CountryDatabaseDao
 import java.lang.IllegalArgumentException
 
 /**

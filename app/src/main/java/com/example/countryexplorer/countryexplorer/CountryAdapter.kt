@@ -8,8 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.countryexplorer.R
 import com.example.countryexplorer.database.Country
+import com.example.countryexplorer.singlecountry.RecyclerViewClickListener
+import kotlinx.coroutines.channels.Channel
 
 class CountryAdapter(): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
 
@@ -22,17 +25,23 @@ class CountryAdapter(): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val countryFlag: TextView = itemView.findViewById(R.id.flag_unicode)
-        val countryName: TextView = itemView.findViewById(R.id.country_name)
-        val countryPopulation: TextView = itemView.findViewById(R.id.country_population)
+    class ViewHolder private constructor(itemView: View) :
+        RecyclerView.ViewHolder(itemView),
+        RecyclerViewClickListener {
+        private val countryFlag: ImageView = itemView.findViewById(R.id.flag_url)
+        private val countryName: TextView = itemView.findViewById(R.id.country_name)
+        private val countryPopulation: TextView = itemView.findViewById(R.id.country_population)
+        private lateinit var mListener: RecyclerViewClickListener
 
-        fun bind(item: Country) {
-//            val res = itemView.context.resources
-            countryFlag.text = item.flag
-            countryName.text = item.name
-            countryPopulation.text =
-                item.population.toString() // TODO: might need a function to convert the Long population to an integer?
+        fun bind(country: Country) {
+            countryFlag.load(country.flag)
+            countryName.text = country.name
+            // TODO: find better way to get "population" string:
+            countryPopulation.text = "Population: " + String.format("%,d", country.population)
+        }
+
+        fun onClick(view:View) {
+            mListener.onClick(view, absoluteAdapterPosition)
         }
 
         companion object {

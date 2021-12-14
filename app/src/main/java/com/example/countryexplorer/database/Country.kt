@@ -1,7 +1,6 @@
 package com.example.countryexplorer.database
 
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,17 +8,40 @@ import androidx.room.PrimaryKey
 data class Country (
 
     @PrimaryKey
-//    @Embedded
     var name: String = "",
 
     @ColumnInfo(name = "population")
     var population: Int = -1,
 
     @ColumnInfo(name = "flag")
-    var flag: String = "" // unicode string
+    var flag: String = "" // URL
 )
 
-//data class Name (
-//    @ColumnInfo(name = "common")
-//    var common: String = ""
-//)
+data class RemoteFlags(
+
+    val png: String,
+
+    val svg: String
+)
+
+data class RemoteName(
+
+    val common: String,
+
+    val official: String
+)
+
+data class RemoteCountry(
+
+    val name: RemoteName,
+
+    val flags: RemoteFlags,
+
+    val population: Int
+
+) {
+    fun toCountry(): Country {
+        return Country(name.common, population, flags.png)
+    }
+
+}
