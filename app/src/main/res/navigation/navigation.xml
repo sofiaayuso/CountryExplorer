@@ -10,10 +10,16 @@
         android:label="CountryExplorerFragment" >
         <action
             android:id="@+id/action_countryExplorerFragment_to_singleCountryFragment"
-            app:destination="@id/singleCountryFragment" />
+            app:destination="@id/singleCountryFragment"
+            app:enterAnim="@anim/to_single_country" />
     </fragment>
     <fragment
         android:id="@+id/singleCountryFragment"
         android:name="com.example.countryexplorer.singlecountry.SingleCountryFragment"
-        android:label="SingleCountryFragment" />
+        android:label="SingleCountryFragment" >
+        <argument
+            android:name="countryName"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

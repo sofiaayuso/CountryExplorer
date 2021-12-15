@@ -14,7 +14,10 @@ data class Country (
     var population: Int = -1,
 
     @ColumnInfo(name = "flag")
-    var flag: String = "" // URL
+    var flag: String = "", // URL
+
+    @ColumnInfo(name = "continent")
+    var continent: String = ""
 )
 
 data class RemoteFlags(
@@ -31,17 +34,19 @@ data class RemoteName(
     val official: String
 )
 
-data class RemoteCountry(
+data class RemoteCountry (
 
     val name: RemoteName,
 
     val flags: RemoteFlags,
 
-    val population: Int
+    val population: Int,
+
+    val continent: String
 
 ) {
     fun toCountry(): Country {
-        return Country(name.common, population, flags.png)
+        return Country(name.common, population, flags.png, continent)
     }
 
 }

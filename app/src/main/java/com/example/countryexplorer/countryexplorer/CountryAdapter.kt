@@ -14,7 +14,7 @@ import com.example.countryexplorer.database.Country
 import com.example.countryexplorer.singlecountry.RecyclerViewClickListener
 import kotlinx.coroutines.channels.Channel
 
-class CountryAdapter(): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
+class CountryAdapter(val listener: RecyclerViewClickListener): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -22,35 +22,29 @@ class CountryAdapter(): ListAdapter<Country, CountryAdapter.ViewHolder>(DIFF) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(listener, parent)
     }
 
-    class ViewHolder private constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView),
-        RecyclerViewClickListener {
+    class ViewHolder private constructor(val listener: RecyclerViewClickListener, itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
         private val countryFlag: ImageView = itemView.findViewById(R.id.flag_url)
         private val countryName: TextView = itemView.findViewById(R.id.country_name)
         private val countryPopulation: TextView = itemView.findViewById(R.id.country_population)
-        private lateinit var mListener: RecyclerViewClickListener
 
         fun bind(country: Country) {
             countryFlag.load(country.flag)
             countryName.text = country.name
-            // TODO: find better way to get "population" string:
             countryPopulation.text = "Population: " + String.format("%,d", country.population)
-        }
-
-        fun onClick(view:View) {
-            mListener.onClick(view, absoluteAdapterPosition)
+            itemView.setOnClickListener { listener.onClick(it, absoluteAdapterPosition) }
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(listener: RecyclerViewClickListener, parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater
                     .inflate(R.layout.list_item_country, parent, false)
 
-                return ViewHolder(view)
+                return ViewHolder(listener, view)
             }
         }
     }

@@ -22,8 +22,6 @@ interface CountriesApiService {
     @GET("all")
     suspend fun getCountries(): List<RemoteCountry>
 
-    //TODO: Fix this
-    @GET("name/${RemoteCountry.name.common}")
 }
 
 object CountriesApi {

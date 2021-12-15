@@ -10,8 +10,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.example.countryexplorer.R
 import com.example.countryexplorer.countryexplorer.CountryExplorerRepository
 import com.example.countryexplorer.countryexplorer.CountryExplorerRepositoryImpl
@@ -19,7 +17,7 @@ import com.example.countryexplorer.database.CountryDatabase
 import com.example.countryexplorer.database.CountryDatabaseDao
 import com.example.countryexplorer.databinding.FragmentSingleCountryBinding
 
-class SingleCountryFragment(var countryName: String) : Fragment() {
+class SingleCountryFragment() : Fragment() {
 
     private lateinit var viewModel: SingleCountryViewModel
     private lateinit var viewModelFactory: SingleCountryViewModelFactory
@@ -41,21 +39,22 @@ class SingleCountryFragment(var countryName: String) : Fragment() {
         database = CountryDatabase.getInstance(application)
         dao = database.countryDatabaseDao
         repository = CountryExplorerRepositoryImpl(dao)
+        viewModelFactory = SingleCountryViewModelFactory(repository)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(SingleCountryViewModel::class.java)
 
         ui.singleCountryViewModel = viewModel
 
-        getCountryByName(countryName)
-
-        // TODO: fix this:
-        viewModel.singleCountryViewStateFlow
-            .onEach {
-                singleCountryViewState
-                onViewStateUpdate(singleCountryViewState)
-            }.launchIn(lifecycleScope)
-
+//        val countryName = savedInstanceState?.getString("countryName")
+//        getCountryByName(countryName)
+//
+////        // TODO: fix this:
+////        viewModel.singleCountryViewStateFlow
+////            .onEach {
+////                singleCountryViewState
+////                onViewStateUpdate(singleCountryViewState)
+////            }.launchIn(lifecycleScope)
 
         return ui.root
     }
@@ -79,9 +78,9 @@ class SingleCountryFragment(var countryName: String) : Fragment() {
         }
     }
 
-    private fun getCountryByName(countryName: String) {
-        viewModel.getCountryByName(countryName)
-    }
+//    private suspend fun getCountryByName(countryName: String) {
+//        viewModel.getCountryByName(countryName)
+//    }
 
 }
 

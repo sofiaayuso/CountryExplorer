@@ -18,6 +18,6 @@ interface CountryDatabaseDao {
     @Query("DELETE FROM country_table")
     suspend fun deleteCountries()
 
-    @Query("SELECT * FROM country_table WHERE name = '${countryName}'") //TODO: Fix this
-    suspend fun getCountryByName(countryName: String)
+    @Query("SELECT * FROM country_table WHERE name = :countryName")
+    suspend fun getCountryByName(countryName: String): Country
 }

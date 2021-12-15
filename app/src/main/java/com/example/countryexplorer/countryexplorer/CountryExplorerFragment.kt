@@ -10,19 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.countryexplorer.R
 import com.example.countryexplorer.database.CountryDatabase
 import com.example.countryexplorer.database.CountryDatabaseDao
 import com.example.countryexplorer.databinding.FragmentCountryExplorerBinding
-import com.example.countryexplorer.singlecountry.OnListItemClick
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import com.example.countryexplorer.singlecountry.OnListItemClick
+import com.example.countryexplorer.singlecountry.RecyclerViewClickListener
+import kotlinx.android.synthetic.main.list_item_country.*
 
 
-
-
-class CountryExplorerFragment: Fragment() {
+class CountryExplorerFragment: Fragment(), RecyclerViewClickListener {
 
     private lateinit var viewModel: CountryExplorerViewModel
     private lateinit var viewModelFactory: CountryExplorerViewModelFactory
@@ -55,7 +54,7 @@ class CountryExplorerFragment: Fragment() {
         // Give the binding object a reference to the ViewModel
         ui.countryExplorerViewModel = viewModel
 
-        adapter = CountryAdapter()
+        adapter = CountryAdapter(this)
 
         ui.recyclerView.adapter = adapter
 
@@ -101,4 +100,11 @@ class CountryExplorerFragment: Fragment() {
     fun onRefreshClicked() {
         viewModel.onRefreshClicked()
     }
+
+    override fun onClick(view: View?, position: Int) {
+        var bundle = Bundle()
+        bundle.putString("countryName", country_name.text.toString())
+        findNavController().navigate(R.id.action_countryExplorerFragment_to_singleCountryFragment, bundle)
+    }
+
 }
