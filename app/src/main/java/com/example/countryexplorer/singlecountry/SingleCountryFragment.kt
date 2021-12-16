@@ -5,17 +5,21 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.example.countryexplorer.R
 import com.example.countryexplorer.countryexplorer.CountryExplorerRepository
 import com.example.countryexplorer.countryexplorer.CountryExplorerRepositoryImpl
 import com.example.countryexplorer.database.CountryDatabase
 import com.example.countryexplorer.database.CountryDatabaseDao
 import com.example.countryexplorer.databinding.FragmentSingleCountryBinding
+import kotlinx.android.synthetic.main.list_item_country.*
+import org.w3c.dom.Text
 
 class SingleCountryFragment() : Fragment() {
 
@@ -25,6 +29,7 @@ class SingleCountryFragment() : Fragment() {
     private lateinit var repository: CountryExplorerRepository
     private lateinit var database: CountryDatabase
     private lateinit var dao: CountryDatabaseDao
+    val args: SingleCountryFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,9 +51,11 @@ class SingleCountryFragment() : Fragment() {
 
         ui.singleCountryViewModel = viewModel
 
-//        val countryName = savedInstanceState?.getString("countryName")
-//        getCountryByName(countryName)
-//
+        // this logic shouldn't be here
+        val countryName = getCountryNameFromArgs()
+        getCountryDataFromDb(countryName)
+
+
 ////        // TODO: fix this:
 ////        viewModel.singleCountryViewStateFlow
 ////            .onEach {
@@ -78,9 +85,14 @@ class SingleCountryFragment() : Fragment() {
         }
     }
 
-//    private suspend fun getCountryByName(countryName: String) {
-//        viewModel.getCountryByName(countryName)
-//    }
+    private fun getCountryNameFromArgs(): String {
+        val tv: TextView = view!!.findViewById(R.id.country_name)
+        return arguments?.getString("country_name").toString()
+    }
+
+    private fun getCountryDataFromDb(countryName: String) {
+        viewModel.getCountryByName(countryName)
+    }
 
 }
 

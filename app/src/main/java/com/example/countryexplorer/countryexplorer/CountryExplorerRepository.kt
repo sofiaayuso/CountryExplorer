@@ -12,7 +12,8 @@ interface CountryExplorerRepository {
 
     fun getCountries(): Flow<List<Country>>
 
-    suspend fun getCountryByName(countryName: String): Country
+    //TODO: I deleted suspend from the function below. Should I put it back?
+    fun getCountryByName(countryName: String): Country
 }
 
 class CountryExplorerRepositoryImpl(private val dao: CountryDatabaseDao): CountryExplorerRepository {
@@ -28,7 +29,8 @@ class CountryExplorerRepositoryImpl(private val dao: CountryDatabaseDao): Countr
         return dao.getCountries()
     }
 
-    override suspend fun getCountryByName(countryName: String): Country {
+    //TODO: Also here:
+    override fun getCountryByName(countryName: String): Country {
         return dao.getCountryByName(countryName)
     }
 }

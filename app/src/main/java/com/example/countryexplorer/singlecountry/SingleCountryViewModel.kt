@@ -1,7 +1,9 @@
 package com.example.countryexplorer.singlecountry
 
+import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import com.example.countryexplorer.countryexplorer.CountryExplorerRepository
+import com.example.countryexplorer.database.Country
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -14,9 +16,9 @@ class SingleCountryViewModel(
     val countryExplorerViewStateFlow: Flow<SingleCountryViewState> = _singleCountryViewStateFlowUpdates
 
 
-    suspend fun init {
-        getCountryByName()
-    }
+//    suspend fun init {
+//        getCountryByName()
+//    }
 //
 //    private fun observeSingleCountryData() {
 //        repository.getSingleCountry()
@@ -33,9 +35,15 @@ class SingleCountryViewModel(
 //        }
 //    }
 //
-    private suspend fun getCountryByName (countryName: String) {
-        repository.getCountryByName(countryName)
+    fun getCountryByName (countryName: String) {
+        val country = repository.getCountryByName(countryName)
+        fillCountryText(country)
     }
+
+    private fun fillCountryText(country: Country) {
+        // do something here to fill information from the country into the text views.
+    }
+
 
 }
 

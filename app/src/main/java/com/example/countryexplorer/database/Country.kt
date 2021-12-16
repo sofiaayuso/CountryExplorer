@@ -17,7 +17,7 @@ data class Country (
     var flag: String = "", // URL
 
     @ColumnInfo(name = "continent")
-    var continent: String = ""
+    var continent: String? = ""
 )
 
 data class RemoteFlags(
@@ -46,7 +46,7 @@ data class RemoteCountry (
 
 ) {
     fun toCountry(): Country {
-        return Country(name.common, population, flags.png, continent)
+        return Country(name.common, population, flags.png, continent.orEmpty())
     }
 
 }
