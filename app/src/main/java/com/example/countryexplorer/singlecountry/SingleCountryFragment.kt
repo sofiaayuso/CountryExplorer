@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.countryexplorer.R
@@ -18,17 +19,16 @@ import com.example.countryexplorer.countryexplorer.CountryExplorerRepositoryImpl
 import com.example.countryexplorer.database.CountryDatabase
 import com.example.countryexplorer.database.CountryDatabaseDao
 import com.example.countryexplorer.databinding.FragmentSingleCountryBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.list_item_country.*
 import org.w3c.dom.Text
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SingleCountryFragment() : Fragment() {
 
-    private lateinit var viewModel: SingleCountryViewModel
-    private lateinit var viewModelFactory: SingleCountryViewModelFactory
+    private val viewModel: SingleCountryViewModel by viewModels()
     private lateinit var ui: FragmentSingleCountryBinding
-    private lateinit var repository: CountryExplorerRepository
-    private lateinit var database: CountryDatabase
-    private lateinit var dao: CountryDatabaseDao
     val args: SingleCountryFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -38,16 +38,6 @@ class SingleCountryFragment() : Fragment() {
     ): View? {
 
         ui = DataBindingUtil.inflate(inflater, R.layout.fragment_single_country, container, false)
-
-        val application = requireNotNull(this.activity).application
-
-        database = CountryDatabase.getInstance(application)
-        dao = database.countryDatabaseDao
-        repository = CountryExplorerRepositoryImpl(dao)
-        viewModelFactory = SingleCountryViewModelFactory(repository)
-
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(SingleCountryViewModel::class.java)
 
         ui.singleCountryViewModel = viewModel
 
@@ -91,7 +81,7 @@ class SingleCountryFragment() : Fragment() {
     }
 
     private fun getCountryDataFromDb(countryName: String) {
-        viewModel.getCountryByName(countryName)
+//        viewModel.getCountryByName(countryName)
     }
 
 }

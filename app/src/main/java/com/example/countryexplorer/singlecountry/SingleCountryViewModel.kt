@@ -3,11 +3,15 @@ package com.example.countryexplorer.singlecountry
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import com.example.countryexplorer.countryexplorer.CountryExplorerRepository
+import com.example.countryexplorer.countryexplorer.CountryExplorerRepositoryImpl
 import com.example.countryexplorer.database.Country
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class SingleCountryViewModel(
+@HiltViewModel
+class SingleCountryViewModel @Inject constructor(
 
     private val repository: CountryExplorerRepository): ViewModel() {
 
@@ -35,10 +39,10 @@ class SingleCountryViewModel(
 //        }
 //    }
 //
-    fun getCountryByName (countryName: String) {
-        val country = repository.getCountryByName(countryName)
-        fillCountryText(country)
-    }
+//    fun getCountryByName (countryName: String) {
+//        val country = repository.getCountryByName(countryName)
+//        fillCountryText(country)
+//    }
 
     private fun fillCountryText(country: Country) {
         // do something here to fill information from the country into the text views.

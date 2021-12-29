@@ -8,6 +8,7 @@ buildscript {
         coroutine_version = '1.5.2'
         gradleVersion = '4.0.1'
         navigationVersion = "2.3.5"
+        ext.hilt_version = '2.40'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
 
@@ -16,10 +17,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.3"
+        classpath "com.android.tools.build:gradle:7.0.4"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:$hilt_version")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -2,9 +2,10 @@ package com.example.countryexplorer.countryexplorer
 
 import com.example.countryexplorer.database.Country
 import com.example.countryexplorer.database.CountryDatabaseDao
-import com.example.countryexplorer.network.CountriesApi
+import com.example.countryexplorer.network.CountriesApiService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 interface CountryExplorerRepository {
 
@@ -13,14 +14,17 @@ interface CountryExplorerRepository {
     fun getCountries(): Flow<List<Country>>
 
     //TODO: I deleted suspend from the function below. Should I put it back?
-    fun getCountryByName(countryName: String): Country
+//    fun getCountryByName(countryName: String): Country
 }
 
-class CountryExplorerRepositoryImpl(private val dao: CountryDatabaseDao): CountryExplorerRepository {
+class CountryExplorerRepositoryImpl @Inject constructor (
+    private val dao: CountryDatabaseDao,
+    private val countryExplorerService: CountriesApiService
+    ) : CountryExplorerRepository {
 
     override suspend fun fetchCountries() {
 
-        val countries = CountriesApi.retrofitService.getCountries().map { it.toCountry() }
+        val countries = countryExplorerService.getCountries().map { it.toCountry() }
         delay( 1000 )
         dao.upsertMany(countries)
     }
@@ -29,8 +33,8 @@ class CountryExplorerRepositoryImpl(private val dao: CountryDatabaseDao): Countr
         return dao.getCountries()
     }
 
-    //TODO: Also here:
-    override fun getCountryByName(countryName: String): Country {
-        return dao.getCountryByName(countryName)
-    }
+//    //TODO: Also here:
+//    override fun getCountryByName(countryName: String): Country {
+//        return dao.getCountryByName(countryName)
+//    }
 }

@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -21,17 +22,15 @@ import com.example.countryexplorer.databinding.FragmentCountryExplorerBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import com.example.countryexplorer.singlecountry.RecyclerViewClickListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.list_item_country.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CountryExplorerFragment: Fragment(), RecyclerViewClickListener {
 
-    private lateinit var viewModel: CountryExplorerViewModel
-    private lateinit var viewModelFactory: CountryExplorerViewModelFactory
-    private lateinit var repository: CountryExplorerRepository
+    val viewModel: CountryExplorerViewModel by viewModels()
     private lateinit var ui: FragmentCountryExplorerBinding
-    private lateinit var database: CountryDatabase
-    private lateinit var dao: CountryDatabaseDao
     private lateinit var adapter: CountryAdapter
 
     override fun onCreateView(
@@ -40,19 +39,9 @@ class CountryExplorerFragment: Fragment(), RecyclerViewClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
+        // TODO: Do I need to initialize these below:
         ui = DataBindingUtil.inflate(
             inflater, R.layout.fragment_country_explorer, container, false)
-
-        val application = requireNotNull(this.activity).application
-
-        database = CountryDatabase.getInstance(application)
-        dao = database.countryDatabaseDao
-        repository = CountryExplorerRepositoryImpl(dao)
-        viewModelFactory = CountryExplorerViewModelFactory(repository)
-
-        // Get a reference to the ViewModel associated with this fragment
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(CountryExplorerViewModel::class.java)
 
         // Give the binding object a reference to the ViewModel
         ui.countryExplorerViewModel = viewModel
